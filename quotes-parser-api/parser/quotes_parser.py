@@ -2,7 +2,7 @@ from typing import List
 from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 import httpx
-from models.quotes import Quote  # Pydantic модель
+from models.quotes import Quote
 
 BASE_URL = "https://quotes.toscrape.com"
 

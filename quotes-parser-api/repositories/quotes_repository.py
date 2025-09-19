@@ -10,7 +10,7 @@ class QuotesRepository:
         inserted_ids: list[ObjectId] = []
 
         for quote in quotes:
-            quote_dict = quote.model_dump()  # Pydantic v2
+            quote_dict = quote.model_dump()
             exists = await self.collection.find_one({
                 "quote": quote_dict["quote"],
                 "author": quote_dict["author"]

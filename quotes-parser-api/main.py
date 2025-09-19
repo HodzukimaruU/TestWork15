@@ -6,10 +6,8 @@ from api.quotes import router
 
 app = FastAPI(title=settings.app_name, debug=settings.debug)
 
-# Подключаем роутер
 app.include_router(router, prefix="")
 
-# Зависимость для роутеров
 async def get_mongo():
     return mongo_db
 
