@@ -4,7 +4,11 @@ from core.settings import settings
 
 from api.quotes import router
 
-app = FastAPI(title=settings.app_name, debug=settings.debug)
+app = FastAPI(
+    title=settings.app_name,
+    debug=settings.debug,
+    description="API для парсинга цитат и получения сохранённых цитат с фильтрацией по автору и тегам"
+    )
 
 app.include_router(router, prefix="")
 

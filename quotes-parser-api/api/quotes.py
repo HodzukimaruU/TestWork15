@@ -10,11 +10,21 @@ from models.quotes import Quote
 router = APIRouter()
 repository = QuotesRepository(mongo_db)
 
-@router.post("/parse-quotes-task/")
+@router.post(
+    "/parse-quotes-task/",
+    summary="Создать задачу на парсинг цитат",
+    description="Создаёт асинхронную задачу Celery для парсинга цитат."
+)
 async def create_parse_task():
     task = parse_quotes.delay()
     return {"task_id": task.id}
 
+@router.get(
+    "/quotes/",
+    response_model=List[Quote],
+    summary="Получить список цитат",
+    description="Возвращает список цитат с возможностью фильтрации по автору и тегу. Поддерживает пагинацию."
+)
 @router.get("/quotes/", response_model=List[Quote])
 async def get_quotes(
     author: str | None = Query(None),
