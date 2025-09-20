@@ -23,6 +23,5 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = Path(__file__).resolve().parents[2] / ".env"
-        print(env_file)
 
 settings = Settings()

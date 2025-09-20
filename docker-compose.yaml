@@ -1,0 +1,54 @@
+services:
+  quotes-parser-api:
+    container_name: quotes-parser-api
+    build:
+      context: .
+      dockerfile: Dockerfile-quotes-parser
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - app_network
+
+  celery:
+    container_name: celery
+    build:
+      context: .
+      dockerfile: Dockerfile-celery
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      - app_network
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongo_data:/data/db
+    networks:
+      - app_network
+
+  redis:
+    image: redis:7
+    container_name: redis
+    command: redis-server
+    restart: always
+    volumes:
+      - ./data/redis_data:/data
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge

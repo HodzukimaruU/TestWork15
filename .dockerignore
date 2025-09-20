@@ -89,3 +89,9 @@ venv/
 
 # VS Code
 .vscode/
+
+data
+LICENSE
+Dockerfile-celery
+Dockerfile-quotes-parser
+docker-compose.yaml
